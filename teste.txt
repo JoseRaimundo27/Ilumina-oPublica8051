@@ -1,5 +1,1 @@
-Para progamar as interrupções no start, primeiro desabilitar EA, fazer as configurações e habilitar!
--Criar as entradas de temp, tensao corrente para os escravos
--Criar entrada do sensor de fotodiodo
--Criar timer e comunicação serial
--Criar display7seg
+o SENSOR DE TEMP VARIA CONFORME VARIAÇÃO DE 2 MILIVOLTZ OU 2º
