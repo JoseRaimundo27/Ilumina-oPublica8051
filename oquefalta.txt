@@ -7,3 +7,4 @@ potenciometro sensor para tensão
 -Criar entrada do sensor de fotodiodo
 -Criar timer e comunicação serial
 -Criar display7seg
+.
