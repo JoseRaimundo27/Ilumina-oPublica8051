@@ -1,6 +1,19 @@
+<<<<<<< HEAD
 
 -Criar a entrada de  corrente para os escravos (fonte de corrente?)
 Criar circuit Or nos bits mais significativos do AD e liga-los na interrupção! se algum deles estiver setado é pq ultrapassamos o limite pre-estabelecido
 CRC é só um xor?!
 -Criar timer e comunicação serial
 -Criar display7seg
+=======
+Para progamar as interrupções no start, primeiro desabilitar EA, fazer as configurações e habilitar!
+-Criar as entradas de temp, tensao corrente para os escravos
+tensão: fonte de tensão, corrente: fonte de corrente, sensor fotoeletrico no proteus e temp
+CRC é só um xor?!
+ldr -> sensor fotoeletrico
+potenciometro sensor para tensão
+-Criar entrada do sensor de fotodiodo
+-Criar timer e comunicação serial
+-Criar display7seg
+.
+>>>>>>> 568d55129583cd25429c34616519946877867efe
