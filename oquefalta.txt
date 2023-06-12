@@ -1,10 +1,8 @@
 <<<<<<< HEAD
 
 -Criar a entrada de  corrente para os escravos (fonte de corrente?)
-Criar circuit Or nos bits mais significativos do AD e liga-los na interrupção! se algum deles estiver setado é pq ultrapassamos o limite pre-estabelecido
-CRC é só um xor?!
 -Criar timer e comunicação serial
--Criar display7seg
+-Criar display7seg (esse botão pode ser em binario? 8displays)
 =======
 Para progamar as interrupções no start, primeiro desabilitar EA, fazer as configurações e habilitar!
 -Criar as entradas de temp, tensao corrente para os escravos
