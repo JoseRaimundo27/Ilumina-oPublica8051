@@ -10,3 +10,6 @@ Criar outro timer para contar os 3 segundos? o timer consegue alcançar esse val
 
 
 Enviar informação com crc ao mestre a cada 3 segundos
+
+botao geral nao para o o led1
+copiar CIRCUITOS escravo 1 e escravo 2 para o escravo 3
