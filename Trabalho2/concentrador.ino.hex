@@ -1,0 +1,59 @@
+// Definição dos pinos e constantes
+
+#define saidaSensores 9
+
+const int interruptPin1 = 3;  // Pino da interrupção 1 (sensores de tensão, corrente e temperatura)
+const int interruptPin2 = 2;  // Pino da interrupção 0 (botão e sensor fotoelétrico)
+
+const int sensorPinTemp = A0;  // Pino analógico conectado ao sensor temperatura
+const int sensorPinCorrente = A1;  // Pino analógico conectado ao sensor Corrente
+const int sensorPinTensao = A2;  // Pino analógico conectado ao sensor Tensão
+
+int sensor[3];
+
+const int ledPin = 13;  // Pino do LED( NA PORTA 13 JÁ TEM UM LED LIGADO)
+
+// Variáveis para armazenar os valores dos sensores
+int voltageValue;
+int currentValue;
+int temperatureValue;
+
+
+void setup() {
+  pinMode(ledPin, OUTPUT);//Pino 13 como saida do led
+  pinMode(0,INPUT);//Pino 0 como entrada para interrupção int0
+  pinMode(1,INPUT);//Pino 1 como entrada para interrupção int1
+  
+  pinMode(saidaSensores, OUTPUT); // Pino 9 de saida da int1
+
+  // Configuração da interrupção 1
+  attachInterrupt(digitalPinToInterrupt(interruptPin1), int1, HIGH);
+}
+
+void loop() {
+  digitalWrite(ledPin,HIGH);
+  // Verifica e há interrupção (int1, por enquanto)
+  if(saidaSensores == LOW){
+    
+  }
+  
+  // Leitura dos valores dos sensores
+  voltageValue = analogRead(sensorPinCorrente) * (5 / 1023);  // Leitura da tensão e conversão para volts
+  currentValue = analogRead(sensorPinTensao) * (5 / 1023);  // Leitura da corrente e conversão para amps
+  temperatureValue = analogRead(A0);  // Leitura da temperatura e conversão para graus Celsius
+  
+  sensor[0] = temperatureValue;
+  
+    // Verifica e há interrupção 
+  if (sensor[0] > 2 ){
+    digitalWrite(saidaSensores, HIGH);
+  }
+}
+
+// Função para a interrupção 1 (sensores de tensão, corrente e temperatura)
+void int1() {
+  
+  static bool estado = LOW;
+  digitalWrite(ledPin, LOW); // Desligar o LED   
+}
+  
