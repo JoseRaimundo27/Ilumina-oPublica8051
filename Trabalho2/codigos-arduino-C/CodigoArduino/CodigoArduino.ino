@@ -13,9 +13,7 @@ LiquidCrystal lcd(10,9,8,7,6,5);
 //DEFINE SAIDA DOS SENSORES
 int saida_ldr = 12;
 int saidaSensores = 4;
-int saida_temp = 10;
-int saida_amp = 9;
-int saida_volt = 8;
+
 
 
 //VARIAVEIS AUXILIARES:
@@ -37,9 +35,7 @@ void setup() {
   pinMode(ldr, INPUT); // Sensor de luz como entrada
   pinMode(saida_ldr, OUTPUT); // Sensor ldr como saída
   pinMode(saidaSensores, OUTPUT); // Saída sensores como saída
-  pinMode(saida_temp, OUTPUT);
-  pinMode(saida_amp, OUTPUT);
-  pinMode(saida_volt, OUTPUT);
+
   
   // SERIAL:
   Serial.begin(9600);  
@@ -80,10 +76,8 @@ void loop() {
   valor_temp = ((analogRead(temp))/2-1); //Convertendo valor temp
   valor_volt = (analogRead(volt)/2); // convertendo voltagem, n ficou exato
   valor_amp = (analogRead(amp)/2); // não converti amper
+  valor_ldr = analogRead(ldr);
 
-  analogWrite(5, valor_volt/723);
-  analogWrite(saida_volt, valor_volt/4);
-  analogWrite(saida_amp, valor_amp/512);
   
   //PLOTANDO SENSORES NO LCD:
   lcd.setCursor(0,0);
