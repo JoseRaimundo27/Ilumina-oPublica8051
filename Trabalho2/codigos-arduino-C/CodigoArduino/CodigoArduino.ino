@@ -7,7 +7,7 @@ LiquidCrystal lcd(10,9,8,7,6,5);
 #define amp A3
 #define volt A5
 #define led 13
-#define btn 11 // Int 0 = pino 2
+   
 
 //DEFINE SAIDA DOS SENSORES
 int saida_ldr = 12;
@@ -17,23 +17,24 @@ int saidaSensores = 4;
 
 //VARIAVEIS AUXILIARES:
 int valor_temp, valor_ldr, valor_amp, valor_volt; // Valores dos sensores
-int status1=1; // status1 inicia em 1 ( led começa ligado )
-int status2=1; // status2 inicia em 1 ( led começa ligado )
+bool status_led=1; // status do led inicia em 1 (led ligado)
+bool status_botao_mestre = 1; // status do botao mestre inicia em 1 (led ligado)
+char c; //
+
 
 void setup() {
   //LCD:
   lcd.begin(16,2);
  // INTERRUPÇÕES:
-  attachInterrupt(0,intBotaoLdr,CHANGE); // Configurando interrupção botao mudança de borda
-  attachInterrupt(1,intSensores, CHANGE); // Configurando interrupção mudança de borda
-
+  attachInterrupt(0,intSensoresBotao,CHANGE); // Configurando interrupção botao mudança de borda
+  attachInterrupt(1,recebeInformacao,CHANGE);
   //PINOS: 
   pinMode(led, OUTPUT);//Pino 13 como saida do led
-  pinMode(btn,INPUT);//Botao como entrada de dados
   pinMode(volt,INPUT);// Sensor de voltagem como entrada
   pinMode(ldr, INPUT); // Sensor de luz como entrada
   pinMode(saida_ldr, OUTPUT); // Sensor ldr como saída
   pinMode(saidaSensores, OUTPUT); // Saída sensores como saída
+  pinMode(3,OUTPUT);
 
 
   // SERIAL:
@@ -47,25 +48,27 @@ void apagaLed(){
 }
 
 //FUNÇÕES DAS INTERRUPÇÕES:
-void intSensores(){
-  if(status1 == 1){
+void intSensoresBotao(){
+  if(status_led == 1){
     apagaLed(); // estava ligado, vou desligar
-    status1 = 0;
+    status_led = 0;
   }
   else{
     ligaLed();
-    status1= 1; //estava desligado, vou ligar
+    status_led= 1; //estava desligado, vou ligar
   }
 }
-
-void intBotaoLdr(){
-  if(status2 == 1){
-    apagaLed(); // estava ligado, vou desligar
-    status2 = 0;
-  }
-  else{
-    ligaLed();
-    status2 = 1; //estava desligado, vou ligar
+void recebeInformacao(){
+  digitalWrite(3,LOW); //Aciona interrupção 1
+  c=Serial.read();
+  if(c == 'F'){
+    if(status_botao_mestre == 1){
+        apagaLed();  
+        status_botao_mestre = 0;
+    }else{
+        apagaLed();  
+        status_botao_mestre = 1;
+    }
   }
 }
 
@@ -95,14 +98,16 @@ void loop() {
 
   
   //Serial:
-  Serial.println(analogRead(5) ); 
+  Serial.println(analogRead(volt) ); 
   delay(100);
 
   //Rotina principal:
-  if(status1 == 1 and status2 == 1){ //SE SENSORES E LDR/BOTAO ESTAO NA FAIXA
+  if(status_led == 1 and status_botao_mestre == 1){ //SE SENSORES E LDR/BOTAO ESTAO NA FAIXA
     ligaLed(); //Led ligado por default
   }
-
+  while(Serial.available()>0){
+    digitalWrite(3,HIGH); //Aciona interrupção 1
+  }
   if((valor_volt > 297) or (valor_amp > 360) or (valor_temp > 60)){ // SE OS SENSORES ULTRAPASSAREM O LIMITE
     digitalWrite(saidaSensores, HIGH); //ACIONA INTERRUPÇÃO DOS SENSORES
   }else{ //SE OS SENSORES ESTIVEREM NO LIMITE, TESTAR LUZ E BOTÃO:
