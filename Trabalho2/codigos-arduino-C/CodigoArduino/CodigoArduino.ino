@@ -20,6 +20,7 @@ int valor_temp, valor_ldr, valor_amp, valor_volt; // Valores dos sensores
 bool status_led=1; // status do led inicia em 1 (led ligado)
 bool status_botao_mestre = 1; // status do botao mestre inicia em 1 (led ligado)
 char c; //
+char buf[64];
 
 
 void setup() {
@@ -40,6 +41,7 @@ void setup() {
   // SERIAL:
   Serial.begin(9600);  
 }
+
 void ligaLed(){
   digitalWrite(led, HIGH);  
 }
@@ -58,17 +60,24 @@ void intSensoresBotao(){
     status_led= 1; //estava desligado, vou ligar
   }
 }
+
 void recebeInformacao(){
-  digitalWrite(3,LOW); //Aciona interrupção 1
+  digitalWrite(3,LOW); 
   c=Serial.read();
+  Serial.println(c ); 
   if(c == 'F'){
-    if(status_botao_mestre == 1){
+      if(status_botao_mestre == 1){
         apagaLed();  
         status_botao_mestre = 0;
-    }else{
+      }else{
         apagaLed();  
         status_botao_mestre = 1;
-    }
+      }
+  }else if(c == 'A'){
+    sprintf(buf,"T1: %d V1: %d A1: %d", valor_temp,valor_volt,valor_amp);
+    Serial.write(buf);
+    Serial.flush();
+    
   }
 }
 
@@ -98,7 +107,6 @@ void loop() {
 
   
   //Serial:
-  Serial.println(analogRead(volt) ); 
   delay(100);
 
   //Rotina principal:
