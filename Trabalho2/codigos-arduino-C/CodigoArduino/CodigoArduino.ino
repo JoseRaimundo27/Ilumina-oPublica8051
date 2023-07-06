@@ -2,7 +2,6 @@
 LiquidCrystal lcd(10,9,8,7,6,5);
 
 //DEFINE PORTAS DOS SENSORES/LED/BOTAO:
-
 #define ldr A0
 #define temp A2
 #define amp A3
@@ -36,7 +35,7 @@ void setup() {
   pinMode(saida_ldr, OUTPUT); // Sensor ldr como saída
   pinMode(saidaSensores, OUTPUT); // Saída sensores como saída
 
-  
+
   // SERIAL:
   Serial.begin(9600);  
 }
