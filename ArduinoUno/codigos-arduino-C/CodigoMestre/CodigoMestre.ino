@@ -12,7 +12,7 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(btn),desligaTudo,CHANGE);
   Timer1.attachInterrupt(solicitaRecebimento);
   //TIMER:
-  Timer1.initialize(3000000);  //Inicialização do timer 1 (auto reload)
+  Timer1.initialize(3000000);  //Inicialização do timer 1 (auto reload)-> 3 segundos
   //SERIAL:
   Serial.begin(9600);
 }

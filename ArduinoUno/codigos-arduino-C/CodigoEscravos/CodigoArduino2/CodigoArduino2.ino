@@ -104,10 +104,6 @@ void loop() {
   lcd.print(valor_amp);
   
 
-  
-  //Serial:
-  delay(100);
-
   //Rotina principal:
   if(status_led == 1 and status_botao_mestre == 1){ //SE SENSORES E LDR/BOTAO ESTAO NA FAIXA
     ligaLed(); //Led ligado por default
