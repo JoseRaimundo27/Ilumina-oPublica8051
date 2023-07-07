@@ -36,6 +36,7 @@ void setup() {
   pinMode(saida_ldr, OUTPUT); // Sensor ldr como saída
   pinMode(saidaSensores, OUTPUT); // Saída sensores como saída
   pinMode(3,OUTPUT);
+  pinMode(A4,OUTPUT); // 0 PARA RECEBENDO 1 PARA ENVIANDO
 
 
   // SERIAL:
@@ -62,9 +63,7 @@ void intSensoresBotao(){
 }
 
 void recebeInformacao(){
-  digitalWrite(3,LOW); 
   c=Serial.read();
-  Serial.println(c ); 
   if(c == 'F'){
       if(status_botao_mestre == 1){
         apagaLed();  
@@ -73,12 +72,14 @@ void recebeInformacao(){
         apagaLed();  
         status_botao_mestre = 1;
       }
-  }else if(c == 'A'){
-    sprintf(buf,"T1: %d V1: %d A1: %d", valor_temp,valor_volt,valor_amp);
+  }else if(c == 'C'){;
+    Serial.write('Z');
+    sprintf(buf," T3: %d V3: %d A3: %d \r", valor_temp,valor_volt,valor_amp);
     Serial.write(buf);
     Serial.flush();
-    
   }
+  
+  digitalWrite(3,LOW); // Deixa em low para ser acionada interrupção dnv dps
 }
 
 //LOOP:
